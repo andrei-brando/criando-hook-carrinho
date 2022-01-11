@@ -13,12 +13,16 @@ const Header = (): JSX.Element => {
   function calcCartSize(): number {
     const calc = cart.reduce(
       (acc, product) => {
-        if (!acc.title.includes(product.title)) ++acc.size;
+        if (!acc.ids.find((id) => id === product.id)) {
+          ++acc.size;
+          acc.ids.push(product.id);
+        }
+
         return acc;
       },
       {
         size: 0,
-        title: Array.of<string>(),
+        ids: Array.of<number>(),
       }
     );
 
